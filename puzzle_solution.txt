@@ -1,0 +1,221 @@
+[single puzzle]
+18  3  9  
+
+11  7  12  
+
+19  10  0  
+
+
+
+row=0
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+10  1  7  
+
+18  17  15  
+
+20  2  0  
+
+
+
+row=0
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+2  14  4  
+
+13  1  18  
+
+6  15  0  
+
+
+
+row=0
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+1  2  3  
+
+4  5  6  
+
+7  8  0  
+
+
+
+row=2
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+12  18  5  
+
+13  17  7  
+
+1  20  0  
+
+
+
+row=0
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+16  5  3  
+
+12  11  9  
+
+18  4  0  
+
+
+
+row=0
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+2  3  
+
+4  0  
+
+
+
+row=1
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+2  3  
+
+4  0  
+
+
+
+row=1
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+2  3  
+
+4  0  
+
+
+
+row=1
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+2  3  
+
+4  0  
+
+
+
+row=1
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
+[single puzzle]
+1  2  
+
+3  0  
+
+
+
+row=1
+
+column= 0
+
+reverse row=0
+
+reverse column=0
+
+
+
+
+
