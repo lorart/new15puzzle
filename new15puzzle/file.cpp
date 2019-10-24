@@ -96,6 +96,7 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 					//	cout<< "puzzle number =" << p[i* PUZZLESIZE+ j] << endl;
 				}
 			}
+			//delete[] p;
 
 		}
 
@@ -146,7 +147,7 @@ void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer,
 					//	cout<< "puzzle number =" << p[i* PUZZLESIZE+ j] << endl;
 				}
 			}
-
+			//delete[] p;
 		}
 
 		//cout << "read file" << endl;

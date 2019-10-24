@@ -27,6 +27,7 @@ public:
 	int checkReverseColum(short* temparry, int PUZZLESIZE);
 	
 	
+	
 
 };
 

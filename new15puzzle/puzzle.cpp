@@ -165,7 +165,7 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		writeColumToFile(SOLUTIONFILENAME, checkpuzzlearry);
 
 		cout << "\n" << endl;
-
+		delete[] checkpuzzlearry;
 	}
 	delete[] temparry;
 	
@@ -176,9 +176,14 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE) {
 	for (int i = 0; i < puzzlecontainer.size(); i++)
 	{
-		
-		PossibleContiousRow(getContinousNumber(bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE), PUZZLESIZE);
-
+		int continousN=getContinousNumber(bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
+		PossibleContiousRow(continousN, PUZZLESIZE);
+		printPuzzle(puzzlecontainer[i], PUZZLESIZE);
+	    cout <<"row ="<< PossibleContiousRow(continousN, PUZZLESIZE)<<endl;
+		cout << "column =" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+		cout << "reverse row =" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+		cout << "reverse colum=" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+		cout << "\n" << endl;
 
 	}
 
@@ -225,6 +230,11 @@ int Puzzlefunciton::checkRow(short* temparry, int PUZZLESIZE) {
 		}
 	}
 	//cout << "ContinousRow=" << (PUZZLESIZE - 1) - unContinousRow << endl;
+
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		delete puzzle[i];
+	}
 	delete[] puzzle;
 	return (PUZZLESIZE)-unContinousRow;
 }
@@ -272,6 +282,10 @@ int Puzzlefunciton::checkColumn(short* temparry, int PUZZLESIZE)
 		}
 	}
 	//cout << "ContinousRow=" << (PUZZLESIZE - 1) - unContinousRow << endl;
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		delete puzzle[i];
+	}
 	delete[] puzzle;
 	return (PUZZLESIZE)-unContinousColumn;
 }
@@ -318,6 +332,10 @@ int Puzzlefunciton::checkReverseRow(short* temparry, int PUZZLESIZE)
 		}
 	}
 	//cout << "ContinousRow=" << (PUZZLESIZE - 1) - unContinousRow << endl;
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		delete[] puzzle[i];
+	}
 	delete[] puzzle;
 	return (PUZZLESIZE)-unReverseContinousRow;
 	
@@ -366,9 +384,12 @@ int Puzzlefunciton::checkReverseColum(short* temparry, int PUZZLESIZE)
 		}
 	}
 	//cout << "ContinousRow=" << (PUZZLESIZE - 1) - unContinousRow << endl;
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		delete puzzle[i];
+	}
 	delete[] puzzle;
 	return (PUZZLESIZE)-unReverseColumn;
 }
-
 
 

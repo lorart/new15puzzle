@@ -8,9 +8,9 @@
 class Math
 {
 public:
-	long factorial(int number);
-	long PossibleContiousRow(int puzzlesize, int Continousnum);
-	virtual int getContinousNumber(short* sortarry, int puzzlesize);
+	unsigned long long factorial(int number);
+	unsigned long long  PossibleContiousRow(int continousnum, int puzzlesize);
+	virtual unsigned long long getContinousNumber(short* sortarry, int puzzlesize);
 	short* bubblesort(short* temparry, int PUZZLESIZE);
 	
 };

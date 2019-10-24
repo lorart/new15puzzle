@@ -10,7 +10,7 @@ using namespace std;
 
 #define PUZZLEFILENAME "../puzzle1.txt"
 #define SOLUTIONFILENAME "../puzzle_solution.txt"
-//#define PUZZLESIZE 4
+
 int PUZZLESIZE=3;
 
 vector<short*> puzzlecontainer;
@@ -154,6 +154,7 @@ int puzzlemenu() {
 
 					case 2:
 						puzzlefunction.CheckAllPuzzle(puzzlecontainer, PUZZLESIZE);
+						//puzzlefunction.CheckAllPuzzle(puzzlecontainer, PUZZLESIZE);
 						break;
 					case 3:
 						
@@ -217,7 +218,12 @@ int main()
 	
 	//puzzlesizemenu();
 	menu();
-	
+	vector<short*>::iterator iter = puzzlecontainer.begin();
+	for (; iter != puzzlecontainer.end(); iter++)
+	{
+		delete[](*iter);
+	}
+
 
 }
 
