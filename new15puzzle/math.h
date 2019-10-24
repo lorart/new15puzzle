@@ -13,19 +13,27 @@ public:
 	virtual unsigned long long getContinousNumber(short* sortarry, int puzzlesize);
 	short* bubblesort(short* temparry, int PUZZLESIZE);
 	
+	
 };
 
 //polymorphism
 class TwoContinous :public Math
 {
 public:
-	int getContinousNumber(int puzzlesize);
+	virtual unsigned long long getContinousNumber(short* sortarry, int puzzlesize);
 };
 
+//polymorphism
 class ThreeContinous :public Math
 {
 public:
 
-	int getContinousNumber(int puzzlesize);
+	virtual unsigned long long getContinousNumber(short* sortarry, int puzzlesize);
+};
+class FourContinous :public Math
+{
+public:
+
+	virtual unsigned long long getContinousNumber(short* sortarry, int puzzlesize);
 };
 

@@ -149,6 +149,7 @@ int puzzlemenu() {
 							break;
 
 					case 1:
+						cout << "Check " << endl;
 						puzzlefunction.CheckOnePuzzle(puzzlecontainer, PUZZLESIZE);
 						break;
 

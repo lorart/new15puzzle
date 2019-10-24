@@ -122,6 +122,7 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 	
 	return 0;
 }
+
 void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer, bool showfile, int PUZZLESIZE) {
 
 	ifstream puzzlefile;
@@ -171,6 +172,7 @@ void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer,
 
 	puzzlefile.close();
 }
+
 void File::fileEmpty(const string fileName)
 {
 	fstream file(fileName, ios::out);

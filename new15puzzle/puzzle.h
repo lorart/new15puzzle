@@ -12,7 +12,7 @@ using namespace std;
 //#define PUZZLESIZE 4
 
 
-class Puzzlefunciton :public File ,public Math//***inheritance
+class Puzzlefunciton :public File ,public Math, public TwoContinous, public ThreeContinous, public FourContinous//***inheritance
 {
 public:
 	//inline
@@ -21,6 +21,8 @@ public:
 	void createRandomArray(int PUZZLESIZE);
 	void CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE);//identify row and column
 	void CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE);//identify all possible row and column
+	int CheckTwoThreePuzzle(short* puzzle, int PUZZLESIZE, int NUM);
+
 	int checkRow(short* puzzle, int PUZZLESIZE);
 	int checkColumn(short* temparry, int PUZZLESIZE);
 	int checkReverseRow(short* temparry, int PUZZLESIZE);

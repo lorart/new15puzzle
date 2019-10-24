@@ -160,9 +160,17 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		checkpuzzlearry[1] = checkColumn(temparry, PUZZLESIZE);
 		checkpuzzlearry[2] = checkReverseRow(temparry, PUZZLESIZE);
 		checkpuzzlearry[3] = checkReverseColum(temparry, PUZZLESIZE);
+
+
+		cout << "2ReverseColum:" << CheckTwoThreePuzzle(puzzlecontainer[i], PUZZLESIZE, 2) << endl;
+		//cout << "2ReverseColum:" << CheckTwoThreePuzzle(puzzlecontainer[i], PUZZLESIZE, 3) << endl;
 	
 		writeSingleArrayToFile(SOLUTIONFILENAME, temparry, 1,PUZZLESIZE);
 		writeColumToFile(SOLUTIONFILENAME, checkpuzzlearry);
+
+
+
+
 
 		cout << "\n" << endl;
 		delete[] checkpuzzlearry;
@@ -175,19 +183,130 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 //identify all possible row and column
 void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE) {
 	for (int i = 0; i < puzzlecontainer.size(); i++)
-	{
-		int continousN=getContinousNumber(bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
-		PossibleContiousRow(continousN, PUZZLESIZE);
+	{	
+		int continousN= Math::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
+		//PossibleContiousRow(continousN, PUZZLESIZE);
 		printPuzzle(puzzlecontainer[i], PUZZLESIZE);
-	    cout <<"row ="<< PossibleContiousRow(continousN, PUZZLESIZE)<<endl;
-		cout << "column =" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
-		cout << "reverse row =" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
-		cout << "reverse colum=" << PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+	    cout <<"row ="<< Math::PossibleContiousRow(continousN, PUZZLESIZE)<<endl;
+		cout << "column =" << Math::PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+		cout << "reverse row =" << Math::PossibleContiousRow(continousN, PUZZLESIZE) << endl;
+		cout << "reverse colum=" << Math::PossibleContiousRow(continousN, PUZZLESIZE) << endl;
 		cout << "\n" << endl;
+		cout<<"(total for row & column, including reverse, in this configuration)" << endl;
+		cout << "2 =" << 1 << endl;
+		cout << "3 =" << 1 << endl;
+		cout << "4 =" << 1<< endl;
+		cout << "(total for row and column, including reverse, for all valid turns)" << endl;
+		int TwocontinousN = TwoContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
+		cout << "2 =" << Math::PossibleContiousRow(TwocontinousN, PUZZLESIZE) * 4 << endl;
+		
+		if(PUZZLESIZE>=3){
+			int ThreecontinousN = ThreeContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
+			cout << "3 =0" << Math::PossibleContiousRow(ThreecontinousN, PUZZLESIZE) * 4 << endl;
+		}
+		else { cout << "3 =0" << endl;
+		}
+		
+		
+		if (PUZZLESIZE>=4) {
+			int FourcontinousN = FourContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
+			cout << "4 =" << Math::PossibleContiousRow(FourcontinousN, PUZZLESIZE)*4 << endl;
+		}
+		else {
+			cout << "4 =0" << endl;
+		}
 
+
+
+
+		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i], 1, PUZZLESIZE);
+		
 	}
 
 }
+
+
+int Puzzlefunciton::CheckTwoThreePuzzle(short* temparry, int PUZZLESIZE, int num)
+{
+	int ContinousRow = 0;
+	short** puzzle = new short* [PUZZLESIZE];
+	for (int row = 0; row < PUZZLESIZE; row++)
+	{
+		puzzle[row] = new short[PUZZLESIZE];
+
+	}
+
+
+	for (int row1 = 0; row1 < (PUZZLESIZE); row1++)
+	{
+		for (int column1 = 0; column1 < (PUZZLESIZE); column1++) {
+			puzzle[row1][column1] = temparry[row1 * (PUZZLESIZE)+column1];
+			//cout << "puzzle[row][column]=" << puzzle[row1][column1] << "     row=" << row1 << " column=" << column1 << endl;
+		}
+
+	}
+
+	//check ContinousRow
+	for (int row = 0; row < (PUZZLESIZE - 1); row++)
+	{
+		for (int littlerow = 0; littlerow < (PUZZLESIZE - num + 1); littlerow++)
+		{
+			cout << "*" << endl;
+			int check = 0;
+			int position = littlerow;
+			for (int column = 0; column < ( num - 1); column++)
+			{
+				cout << row << ' ' << column << ' ' << "puzzle[row][column] =" << puzzle[row][column] << endl;
+				cout << row << ' ' << column + 1 << ' ' << "puzzle[row][column +1] =" << puzzle[row][column + 1] << endl;
+				if (puzzle[row][column] == (puzzle[row][column + 1] - 1))
+					check++;
+				position++;
+			}
+
+
+
+				
+				if (check == num - 1) {
+					ContinousRow++;
+				}
+		}
+		
+			for (int littlerow = 0; littlerow < (PUZZLESIZE - num - 1); littlerow++) {
+
+				{
+					int check = 0;
+					for (int column = 1; column < (num - 1); column++)
+					{
+
+						if (puzzle[row][column] == ((puzzle[row][column +1] -1)))
+						
+							check++;
+						
+
+						
+						if (check == num - 1) {
+							ContinousRow++;
+						}
+
+					}
+				}
+			}
+
+
+			
+
+		}
+
+		return ContinousRow++;
+	}
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		delete puzzle[i];
+	}
+	delete[] puzzle;
+}
+	
+
 
 
 //***pointer to pointer
@@ -338,7 +457,7 @@ int Puzzlefunciton::checkReverseRow(short* temparry, int PUZZLESIZE)
 	}
 	delete[] puzzle;
 	return (PUZZLESIZE)-unReverseContinousRow;
-	
+
 }
 
 //***pointer to pointer
@@ -391,5 +510,3 @@ int Puzzlefunciton::checkReverseColum(short* temparry, int PUZZLESIZE)
 	delete[] puzzle;
 	return (PUZZLESIZE)-unReverseColumn;
 }
-
-

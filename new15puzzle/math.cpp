@@ -54,3 +54,50 @@ short* Math::bubblesort(short* temparry,int PUZZLESIZE)
 	}*/
 	return sortarry;
 }
+
+unsigned long long TwoContinous::getContinousNumber(short* sortarry, int puzzlesize)
+{
+	int continousnum = 0;
+	for (int i = 1; i <= (puzzlesize * puzzlesize - 2); i++)
+	{
+
+		if ((sortarry[i] + 1) == sortarry[i + 1]) {
+			continousnum++;
+		}
+	}
+	//cout << "continousnum= " << continousnum << endl;
+	return continousnum;
+}
+
+unsigned long long ThreeContinous::getContinousNumber(short* sortarry, int puzzlesize)
+{
+	int continousnum = 0;
+	for (int i = 1; i <= (puzzlesize * puzzlesize - 3); i++)
+	{
+
+		if ((sortarry[i] + 2) == sortarry[i + 2]) {
+			continousnum++;
+		}
+	}
+	//cout << "continousnum= " << continousnum << endl;
+	return continousnum;
+
+	return 0;
+}
+
+unsigned long long FourContinous::getContinousNumber(short* sortarry, int puzzlesize)
+{
+	int continousnum = 0;
+	for (int i = 1; i <= (puzzlesize * puzzlesize - 4); i++)
+	{
+
+		if ((sortarry[i] + 3) == sortarry[i + 3]) {
+			continousnum++;
+		}
+	}
+	//cout << "continousnum= " << continousnum << endl;
+	return continousnum;
+
+	return 0;
+
+}
