@@ -74,6 +74,7 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 	if (puzzlefile.eof())
 	{
 		cout << "blank file" << endl;
+		return 1;
 	}
 	
 	else {
@@ -117,6 +118,7 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 	}
 
 	puzzlefile.close();
+	
 	return 0;
 }
 void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer, bool showfile, int PUZZLESIZE) {

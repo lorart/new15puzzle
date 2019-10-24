@@ -11,7 +11,7 @@ using namespace std;
 #define PUZZLEFILENAME "../puzzle1.txt"
 #define SOLUTIONFILENAME "../puzzle_solution.txt"
 //#define PUZZLESIZE 4
-int PUZZLESIZE=4;
+int PUZZLESIZE=3;
 
 vector<short*> puzzlecontainer;
 
@@ -65,7 +65,7 @@ int menu() {
 					file.fileEmpty(PUZZLEFILENAME);
 					puzzlecontainer.clear();
 					puzzlefunction.enterManually(PUZZLESIZE);
-					if(file.readFile(PUZZLEFILENAME, puzzlecontainer, PUZZLESIZE))
+					if(!file.readFile(PUZZLEFILENAME, puzzlecontainer, PUZZLESIZE))
 					{
 						puzzlemenu();//show puzzlemenu
 					}
@@ -75,7 +75,7 @@ int menu() {
 				case 3://Enter the puzzle number though file
 					
 
-					if (file.readFile(PUZZLEFILENAME, puzzlecontainer, PUZZLESIZE))
+					if (!file.readFile(PUZZLEFILENAME, puzzlecontainer, PUZZLESIZE))
 					{
 						puzzlemenu();//show puzzlemenu
 					}
@@ -124,9 +124,10 @@ int menu() {
 int puzzlemenu() {
 	while (1) {
 		cout << "------------------------------------------------------------------------ " << endl;
-		cout << "\t* [press 1]show how many row,column in this [single] puzzle *" << endl;
-		cout << "\t* [press 2]show how many row,column in [all pussible] puzzle *" << endl;
-		cout << "\t* [press 3] retun to main menu *" << endl;
+		cout << "\t* [press 1]*identify* row,column in this [single] puzzle *" << endl;
+		cout << "\t* [press 2]*cousework 1*show how many row,column in [all pussible] puzzle *" << endl;
+		cout << "\t* [press 3]*cousework 2*show how many row,column in [all pussible] puzzle *" << endl;
+		cout << "\t* [Enter 0 to return] *" << endl;
 		cout << "------------------------------------------------------------------------ " << endl;
 
 		//cin.clear();
@@ -139,27 +140,24 @@ int puzzlemenu() {
 			cin.ignore(1024, '\n');
 		}
 		else {
-			if (0) {
-			
-			}
-			else {
+		
 				if (input >= 1 || input <= 3) {
 
 					switch (input) {
+					case 0:
+							return 0;
+							break;
 
 					case 1:
 						puzzlefunction.CheckOnePuzzle(puzzlecontainer, PUZZLESIZE);
 						break;
 
-
 					case 2:
-
+						puzzlefunction.CheckAllPuzzle(puzzlecontainer, PUZZLESIZE);
 						break;
 					case 3:
-						return 0;
+						
 						break;
-
-
 					}
 
 				}
@@ -167,7 +165,7 @@ int puzzlemenu() {
 					cout << "error input" << endl;
 
 				}
-			}
+			
 		}
 	}
 }
@@ -215,12 +213,11 @@ int main()
 	time_t t;
 	srand((unsigned)time(&t));
 	
-	puzzlesizemenu();
-//	menu();
-	//puzzlemenu();
-	//puzzlefunction.CheckOnePuzzle(puzzlecontainer);
 
-	//cout<< math.factorial(10)<<endl;
+	
+	//puzzlesizemenu();
+	menu();
+	
 
 }
 

@@ -9,21 +9,23 @@ class Math
 {
 public:
 	long factorial(int number);
-	long PossibleContiousRow(int puzzlesize, int num);
-	virtual int getContinousNumber(int puzzlesize);
+	long PossibleContiousRow(int puzzlesize, int Continousnum);
+	virtual int getContinousNumber(short* sortarry, int puzzlesize);
+	short* bubblesort(short* temparry, int PUZZLESIZE);
+	
 };
 
 //polymorphism
 class TwoContinous :public Math
 {
 public:
-	long PossibleContiousRow(int puzzlesize, int num);
+	int getContinousNumber(int puzzlesize);
 };
 
 class ThreeContinous :public Math
 {
 public:
 
-	long PossibleContiousRow(int puzzlesize);
+	int getContinousNumber(int puzzlesize);
 };
 
