@@ -124,9 +124,8 @@ int menu() {
 int puzzlemenu() {
 	while (1) {
 		cout << "------------------------------------------------------------------------ " << endl;
-		cout << "\t* [press 1]*identify* row,column in this [single] puzzle *" << endl;
-		cout << "\t* [press 2]*cousework 1*show how many row,column in [all pussible] puzzle *" << endl;
-		cout << "\t* [press 3]*cousework 2*show how many row,column in [all pussible] puzzle *" << endl;
+		cout << "\t* [press 1] *identify*       row,column in this [single] puzzle *" << endl;
+		cout << "\t* [press 2] *cousework 1/2*  show how many row,column in [all pussible] puzzle *" << endl;
 		cout << "\t* [Enter 0 to return] *" << endl;
 		cout << "------------------------------------------------------------------------ " << endl;
 
@@ -141,7 +140,7 @@ int puzzlemenu() {
 		}
 		else {
 		
-				if (input >= 1 || input <= 3) {
+				if (input >= 1 || input < 3) {
 
 					switch (input) {
 					case 0:
@@ -157,9 +156,7 @@ int puzzlemenu() {
 						puzzlefunction.CheckAllPuzzle(puzzlecontainer, PUZZLESIZE);
 						//puzzlefunction.CheckAllPuzzle(puzzlecontainer, PUZZLESIZE);
 						break;
-					case 3:
-						
-						break;
+					
 					}
 
 				}

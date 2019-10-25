@@ -21,7 +21,9 @@ public:
 	void createRandomArray(int PUZZLESIZE);
 	void CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE);//identify row and column
 	void CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE);//identify all possible row and column
-	int CheckTwoThreePuzzle(short* puzzle, int PUZZLESIZE, int NUM);
+	int CheckTwoPuzzle(short* temparry, int PUZZLESIZE); 
+	int CheckThreePuzzle(short* temparry, int PUZZLESIZE);
+	int CheckFourPuzzle(short* temparry, int PUZZLESIZE);
 
 	int checkRow(short* puzzle, int PUZZLESIZE);
 	int checkColumn(short* temparry, int PUZZLESIZE);

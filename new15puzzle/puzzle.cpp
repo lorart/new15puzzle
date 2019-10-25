@@ -133,7 +133,7 @@ void Puzzlefunciton::createRandomArray(int PUZZLESIZE) {
 
 //identify possible row and column
 void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE) {
-	cout << "CheckOnePuzzle" << endl;
+	cout << "CheckOnePuzzle(NOT cousework, cousework is 2)" << endl;
 	//short temparry[PUZZLESIZE * PUZZLESIZE] = { NULL };
 	short* temparry = new short[PUZZLESIZE * PUZZLESIZE];
 
@@ -162,8 +162,7 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		checkpuzzlearry[3] = checkReverseColum(temparry, PUZZLESIZE);
 
 
-		cout << "2ReverseColum:" << CheckTwoThreePuzzle(puzzlecontainer[i], PUZZLESIZE, 2) << endl;
-		//cout << "2ReverseColum:" << CheckTwoThreePuzzle(puzzlecontainer[i], PUZZLESIZE, 3) << endl;
+		
 	
 		writeSingleArrayToFile(SOLUTIONFILENAME, temparry, 1,PUZZLESIZE);
 		writeColumToFile(SOLUTIONFILENAME, checkpuzzlearry);
@@ -193,9 +192,21 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		cout << "reverse colum=" << Math::PossibleContiousRow(continousN, PUZZLESIZE) << endl;
 		cout << "\n" << endl;
 		cout<<"(total for row & column, including reverse, in this configuration)" << endl;
-		cout << "2 =" << 1 << endl;
-		cout << "3 =" << 1 << endl;
-		cout << "4 =" << 1<< endl;
+		cout << "2 =" << CheckTwoPuzzle(puzzlecontainer[i], PUZZLESIZE) << endl;
+		if (PUZZLESIZE >= 3) {
+		cout << "3 =" << CheckThreePuzzle(puzzlecontainer[i], PUZZLESIZE) << endl;
+		}
+		else {
+			cout << "3 =0" << endl;
+		}
+		if (PUZZLESIZE >= 4) {
+			cout << "4 =" << CheckFourPuzzle(puzzlecontainer[i], PUZZLESIZE) << endl;
+		}
+		else {
+			cout << "4 =0" << endl;
+		}
+
+
 		cout << "(total for row and column, including reverse, for all valid turns)" << endl;
 		int TwocontinousN = TwoContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 		cout << "2 =" << Math::PossibleContiousRow(TwocontinousN, PUZZLESIZE) * 4 << endl;
@@ -215,98 +226,118 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		else {
 			cout << "4 =0" << endl;
 		}
+		cout << "\n\n" << endl;
 
 
 
-
-		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i], 1, PUZZLESIZE);
+		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i],1, PUZZLESIZE);
 		
 	}
 
 }
 
 
-int Puzzlefunciton::CheckTwoThreePuzzle(short* temparry, int PUZZLESIZE, int num)
+int Puzzlefunciton::CheckTwoPuzzle(short* temparry, int PUZZLESIZE)
 {
-	int ContinousRow = 0;
-	short** puzzle = new short* [PUZZLESIZE];
-	for (int row = 0; row < PUZZLESIZE; row++)
+	short* a = new short[PUZZLESIZE];
+	int check=0;
+	for (int i = 0; i < PUZZLESIZE; i++)
 	{
-		puzzle[row] = new short[PUZZLESIZE];
-
-	}
-
-
-	for (int row1 = 0; row1 < (PUZZLESIZE); row1++)
-	{
-		for (int column1 = 0; column1 < (PUZZLESIZE); column1++) {
-			puzzle[row1][column1] = temparry[row1 * (PUZZLESIZE)+column1];
-			//cout << "puzzle[row][column]=" << puzzle[row1][column1] << "     row=" << row1 << " column=" << column1 << endl;
-		}
-
-	}
-
-	//check ContinousRow
-	for (int row = 0; row < (PUZZLESIZE - 1); row++)
-	{
-		for (int littlerow = 0; littlerow < (PUZZLESIZE - num + 1); littlerow++)
+		for (int j = 0; j < PUZZLESIZE; j++)
 		{
-			cout << "*" << endl;
-			int check = 0;
-			int position = littlerow;
-			for (int column = 0; column < ( num - 1); column++)
-			{
-				cout << row << ' ' << column << ' ' << "puzzle[row][column] =" << puzzle[row][column] << endl;
-				cout << row << ' ' << column + 1 << ' ' << "puzzle[row][column +1] =" << puzzle[row][column + 1] << endl;
-				if (puzzle[row][column] == (puzzle[row][column + 1] - 1))
-					check++;
-				position++;
-			}
-
-
-
-				
-				if (check == num - 1) {
-					ContinousRow++;
-				}
-		}
-		
-			for (int littlerow = 0; littlerow < (PUZZLESIZE - num - 1); littlerow++) {
-
-				{
-					int check = 0;
-					for (int column = 1; column < (num - 1); column++)
-					{
-
-						if (puzzle[row][column] == ((puzzle[row][column +1] -1)))
-						
-							check++;
-						
-
-						
-						if (check == num - 1) {
-							ContinousRow++;
-						}
-
-					}
-				}
-			}
-
-
-			
+			a[j] = temparry[i * PUZZLESIZE + j];
 
 		}
+		for (int turn = 0; turn < (PUZZLESIZE-1); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) || (a[turn] == a[turn + 1] + 1)) { check++; }
 
-		return ContinousRow++;
+		}
 	}
 	for (int i = 0; i < PUZZLESIZE; i++)
 	{
-		delete puzzle[i];
-	}
-	delete[] puzzle;
-}
-	
+		for (int j = 0; j < PUZZLESIZE; j++)
+		{
+			a[j] = temparry[j * PUZZLESIZE + i];
 
+		}
+		for (int turn = 0; turn < (PUZZLESIZE - 1); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) || (a[turn] == a[turn + 1] + 1)) { check++; }
+
+		}
+	}
+	delete[] a;
+	return check;
+}
+int Puzzlefunciton::CheckThreePuzzle(short* temparry, int PUZZLESIZE) {
+	short* a = new short[PUZZLESIZE];
+	int check = 0;
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		for (int j = 0; j < PUZZLESIZE; j++)
+		{
+			a[j] = temparry[i * PUZZLESIZE + j];
+
+		}
+		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn+1] == a[turn + 2] - 1)) { check++; }
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1)) { check++; }
+
+		}
+	}
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		for (int j = 0; j < PUZZLESIZE; j++)
+		{
+			a[j] = temparry[j * PUZZLESIZE + i];
+
+		}
+		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1)) { check++; }
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1)) { check++; }
+
+		}
+	}
+	delete[] a;
+	return check;
+	 };
+int Puzzlefunciton::CheckFourPuzzle(short* temparry, int PUZZLESIZE) {
+	short* a = new short[PUZZLESIZE];
+	int check = 0;
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		for (int j = 0; j < PUZZLESIZE; j++)
+		{
+			a[j] = temparry[i * PUZZLESIZE + j];
+
+		}
+		for (int turn = 0; turn < (PUZZLESIZE - 3); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1)) { check++; }
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) { check++; }
+
+		}
+	}
+	for (int i = 0; i < PUZZLESIZE; i++)
+	{
+		for (int j = 0; j < PUZZLESIZE; j++)
+		{
+			a[j] = temparry[j * PUZZLESIZE + i];
+
+		}
+		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
+		{
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1)) { check++; }
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) { check++; }
+
+		}
+	}
+	delete[] a;
+	return check;
+};
 
 
 //***pointer to pointer
