@@ -15,7 +15,7 @@ void File::writeColumToFile(string filename, short* puzzlcolum) {
 	puzzlefile << "\n" << endl;
 	puzzlefile.close();
 }
-void File::writeMutiArrayToFile(string filename, short* puzzlcolum, int PUZZLESIZE)
+void File::writeMutiArrayToFile(string filename, unsigned long long* puzzlcolum, int PUZZLESIZE)
 {
 	ofstream puzzlefile;
 

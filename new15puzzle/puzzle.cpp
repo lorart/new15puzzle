@@ -229,7 +229,7 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		cout << "\n\n" << endl;
 
 
-		short* checkpuzzlearry = new short[4];
+		unsigned long long* checkpuzzlearry = new unsigned long long[10];
 		checkpuzzlearry[0] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
 		checkpuzzlearry[1] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
 		checkpuzzlearry[2] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
@@ -262,7 +262,7 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		}
 
 		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i], 1, PUZZLESIZE);
-		writeMutiArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i],  PUZZLESIZE);
+		writeMutiArrayToFile(SOLUTIONFILENAME, checkpuzzlearry,  PUZZLESIZE);
 
 		delete[] checkpuzzlearry;
 		

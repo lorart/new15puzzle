@@ -15,7 +15,7 @@ class File
 public:
 
 	void writeColumToFile(string filename, short* puzzlcolum);
-	void writeMutiArrayToFile(string filename, short* puzzle, int PUZZLESIZE);
+	void writeMutiArrayToFile(string filename, unsigned long long* puzzle, int PUZZLESIZE);
 	void writeSingleArrayToFile(string filename, short* puzzle, bool singlePuzzle, int PUZZLESIZE);
 	void writeArrayToFile(string filename, short* puzzle, int PUZZLESIZE);
 
