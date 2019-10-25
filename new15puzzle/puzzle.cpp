@@ -182,7 +182,9 @@ void Puzzlefunciton::CheckOnePuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 //identify all possible row and column
 void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLESIZE) {
 	for (int i = 0; i < puzzlecontainer.size(); i++)
-	{	
+	{
+		
+
 		int continousN= Math::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 		//PossibleContiousRow(continousN, PUZZLESIZE);
 		printPuzzle(puzzlecontainer[i], PUZZLESIZE);
@@ -210,17 +212,15 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		cout << "(total for row and column, including reverse, for all valid turns)" << endl;
 		int TwocontinousN = TwoContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 		cout << "2 =" << Math::PossibleContiousRow(TwocontinousN, PUZZLESIZE) * 4 << endl;
-		
+		int ThreecontinousN = ThreeContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 		if(PUZZLESIZE>=3){
-			int ThreecontinousN = ThreeContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 			cout << "3 =0" << Math::PossibleContiousRow(ThreecontinousN, PUZZLESIZE) * 4 << endl;
 		}
 		else { cout << "3 =0" << endl;
 		}
 		
-		
+		int FourcontinousN = FourContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 		if (PUZZLESIZE>=4) {
-			int FourcontinousN = FourContinous::getContinousNumber(Math::bubblesort(puzzlecontainer[i], PUZZLESIZE), PUZZLESIZE);
 			cout << "4 =" << Math::PossibleContiousRow(FourcontinousN, PUZZLESIZE)*4 << endl;
 		}
 		else {
@@ -229,12 +229,47 @@ void Puzzlefunciton::CheckAllPuzzle(vector<short*>& puzzlecontainer, int PUZZLES
 		cout << "\n\n" << endl;
 
 
+		short* checkpuzzlearry = new short[4];
+		checkpuzzlearry[0] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
+		checkpuzzlearry[1] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
+		checkpuzzlearry[2] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
+		checkpuzzlearry[3] = Math::PossibleContiousRow(continousN, PUZZLESIZE);		checkpuzzlearry[0] = Math::PossibleContiousRow(continousN, PUZZLESIZE);
+		checkpuzzlearry[4] = CheckTwoPuzzle(puzzlecontainer[i], PUZZLESIZE);
+		if (PUZZLESIZE >= 3) {
+			checkpuzzlearry[5] = CheckThreePuzzle(puzzlecontainer[i], PUZZLESIZE) ;
+		}
+		else {
+			checkpuzzlearry[5] = 0;
+		}
+		if (PUZZLESIZE >= 4) {
+			checkpuzzlearry[6] = CheckFourPuzzle(puzzlecontainer[i], PUZZLESIZE);
+		}
+		else {
+			checkpuzzlearry[6] = 0;
+		}
+		checkpuzzlearry[7] = CheckTwoPuzzle(puzzlecontainer[i], PUZZLESIZE);
+		if (PUZZLESIZE >= 3) {
+			checkpuzzlearry[8] = Math::PossibleContiousRow(ThreecontinousN, PUZZLESIZE) * 4;
+		}
+		else {
+			checkpuzzlearry[8] = 0;
+		}
+		if (PUZZLESIZE >= 4) {
+			checkpuzzlearry[9] = Math::PossibleContiousRow(FourcontinousN, PUZZLESIZE) * 4;
+		}
+		else {
+			checkpuzzlearry[9] = 0;
+		}
 
-		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i],1, PUZZLESIZE);
+		writeSingleArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i], 1, PUZZLESIZE);
+		writeMutiArrayToFile(SOLUTIONFILENAME, puzzlecontainer[i],  PUZZLESIZE);
+
+		delete[] checkpuzzlearry;
 		
 	}
 
 }
+
 
 
 int Puzzlefunciton::CheckTwoPuzzle(short* temparry, int PUZZLESIZE)
@@ -263,7 +298,9 @@ int Puzzlefunciton::CheckTwoPuzzle(short* temparry, int PUZZLESIZE)
 		}
 		for (int turn = 0; turn < (PUZZLESIZE - 1); turn++)
 		{
-			if ((a[turn] == a[turn + 1] - 1) || (a[turn] == a[turn + 1] + 1)) { check++; }
+			if ((a[turn] == a[turn + 1] - 1) || (a[turn] == a[turn + 1] + 1))
+			{ check++;
+			}
 
 		}
 	}
@@ -282,8 +319,12 @@ int Puzzlefunciton::CheckThreePuzzle(short* temparry, int PUZZLESIZE) {
 		}
 		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
 		{
-			if ((a[turn] == a[turn + 1] - 1) && (a[turn+1] == a[turn + 2] - 1)) { check++; }
-			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1)) { check++; }
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn+1] == a[turn + 2] - 1)) 
+			{ check++; 
+			}
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1))
+			{ check++;
+			}
 
 		}
 	}
@@ -296,8 +337,12 @@ int Puzzlefunciton::CheckThreePuzzle(short* temparry, int PUZZLESIZE) {
 		}
 		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
 		{
-			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1)) { check++; }
-			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1)) { check++; }
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1)) 
+			{ check++;
+			}
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1))
+			{ check++;
+			}
 
 		}
 	}
@@ -316,8 +361,12 @@ int Puzzlefunciton::CheckFourPuzzle(short* temparry, int PUZZLESIZE) {
 		}
 		for (int turn = 0; turn < (PUZZLESIZE - 3); turn++)
 		{
-			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1)) { check++; }
-			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) { check++; }
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1))
+			{ check++;
+			}
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) 
+			{ check++; 
+			}
 
 		}
 	}
@@ -330,8 +379,12 @@ int Puzzlefunciton::CheckFourPuzzle(short* temparry, int PUZZLESIZE) {
 		}
 		for (int turn = 0; turn < (PUZZLESIZE - 2); turn++)
 		{
-			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1)) { check++; }
-			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) { check++; }
+			if ((a[turn] == a[turn + 1] - 1) && (a[turn + 1] == a[turn + 2] - 1) && (a[turn + 2] == a[turn + 3] - 1)) 
+			{ check++; 
+			}
+			if ((a[turn] == a[turn + 1] + 1) && (a[turn + 1] == a[turn + 2] + 1) && (a[turn + 2] == a[turn + 3] + 1)) 
+			{ check++; 
+			}
 
 		}
 	}

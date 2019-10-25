@@ -4,7 +4,7 @@ void File::writeColumToFile(string filename, short* puzzlcolum) {
 	ofstream puzzlefile;
 
 	puzzlefile.open(filename, ios::app);
-	cout << "writing to file" << endl;
+	//cout << "writing to file" << endl;
 
 	puzzlefile << "row=" << puzzlcolum[0] << "\n" << endl;
 	puzzlefile << "column= " << puzzlcolum[1] << "\n" << endl;
@@ -14,7 +14,33 @@ void File::writeColumToFile(string filename, short* puzzlcolum) {
 
 	puzzlefile << "\n" << endl;
 	puzzlefile.close();
-};
+}
+void File::writeMutiArrayToFile(string filename, short* puzzlcolum, int PUZZLESIZE)
+{
+	ofstream puzzlefile;
+
+	puzzlefile.open(filename, ios::app);
+	//cout << "writing to file" << endl;
+
+	puzzlefile << "row =" << puzzlcolum[0] << endl;
+	puzzlefile << "column =" << puzzlcolum[1] << endl;
+	puzzlefile << "reverse row =" << puzzlcolum[2] << endl;
+	puzzlefile << "reverse colum=" << puzzlcolum[3] << endl;
+	puzzlefile << "\n" << endl;
+	puzzlefile << "(total for row & column, including reverse, in this configuration)" << endl;
+	puzzlefile << "2 =" << puzzlcolum[4] << endl;
+	puzzlefile << "3 =" << puzzlcolum[5] << endl;
+	puzzlefile << "4 =" << puzzlcolum[6] << endl;
+	puzzlefile << "(total for row and column, including reverse, for all valid turns)" << endl;
+	puzzlefile << "2 =" << puzzlcolum[7] << endl;
+	puzzlefile << "3 =" << puzzlcolum[8] << endl;
+	puzzlefile << "4 =" << puzzlcolum[9] << endl;
+	
+	puzzlefile << "\n" << endl;
+	puzzlefile.close();
+
+}
+
 
 void File::writeSingleArrayToFile(string filename, short* puzzle, bool singlePuzzle, int PUZZLESIZE)
 {//check ok
@@ -22,12 +48,7 @@ void File::writeSingleArrayToFile(string filename, short* puzzle, bool singlePuz
 
 	puzzlefile.open(filename, ios::app);
 	//cout << "writing to file" << endl;
-	if (singlePuzzle == 1) {
-		puzzlefile << "[single puzzle]" << endl;
-	}
-	else {
-		puzzlefile << "[all possible puzzle]" << endl;
-	}
+	
 	for (int i = 0; i < PUZZLESIZE; i++)
 	{
 		for (int j = 0; j < PUZZLESIZE; j++) {
@@ -86,28 +107,43 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 		for (int k = 0; k < puzzlenumber; k++)
 		{
 			short* p = new short[PUZZLESIZE * PUZZLESIZE];
-			//puzzlecontiner.push_back(&p);
+			
 			puzzlecontainer.push_back(p);
+			
 			for (int i = 0; i < PUZZLESIZE; i++)
 			{
 				for (int j = 0; j < PUZZLESIZE; j++) {
+					short temp;
+					puzzlefile >> temp;
+					//cout <<"temp="<< temp << endl;
+					if (temp>20||temp<0) {
+						cout << "there is something wrong with the file" << endl;
+					}
+					else
+					{
+						if ((i * PUZZLESIZE + j) == (PUZZLESIZE * PUZZLESIZE - 1))
+						{
+							p[i * PUZZLESIZE + j] = 0;
+						}
+						else{
+							//p[i * PUZZLESIZE + j]=temp;
+							p[i * PUZZLESIZE + j] = temp;
+;
 
-					puzzlefile >> p[i * PUZZLESIZE + j];
-					//	cout<< "puzzle number =" << p[i* PUZZLESIZE+ j] << endl;
+							}
+					}
+
 				}
 			}
-			//delete[] p;
+			
 
 		}
 
-		//cout << "read file" << endl;
-		//cout << "puzzle number =" << puzzlenumber << endl;
 		for (int i = 0; i < puzzlenumber; i++)
 		{
-			//cout << "puzzlecontainer=" << (puzzlecontainer[i])[0];
-
 			for (int j = 0; j < (PUZZLESIZE * PUZZLESIZE); j++) {
 				if ((j % PUZZLESIZE) == 0) { cout << "\n" << endl; }
+			//	cout << "**" << " ";
 				cout << (puzzlecontainer[i])[j] << " ";
 
 			}
@@ -122,6 +158,7 @@ int File::readFile(string filename, vector<short*>& puzzlecontainer, int PUZZLES
 	
 	return 0;
 }
+
 
 void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer, bool showfile, int PUZZLESIZE) {
 
@@ -138,19 +175,37 @@ void File::readFilewithOutPush(string filename, vector<short*>& puzzlecontainer,
 		for (int k = 0; k < puzzlenumber; k++)
 		{
 			short* p = new short[PUZZLESIZE * PUZZLESIZE];
-			//puzzlecontiner.push_back(&p);
+
 			puzzlecontainer.push_back(p);
+
 			for (int i = 0; i < PUZZLESIZE; i++)
 			{
 				for (int j = 0; j < PUZZLESIZE; j++) {
+					short temp;
+					puzzlefile >> temp;
+					//cout <<"temp="<< temp << endl;
+					if (temp > 20 || temp < 0) {
+						cout << "there is something wrong with the file" << endl;
+					}
+					else
+					{
+						if ((i * PUZZLESIZE + j) == (PUZZLESIZE * PUZZLESIZE - 1))
+						{
+							p[i * PUZZLESIZE + j] = 0;
+						}
+						else {
+							//p[i * PUZZLESIZE + j]=temp;
+							p[i * PUZZLESIZE + j] = temp;
+							;
 
-					puzzlefile >> p[i * PUZZLESIZE + j];
-					//	cout<< "puzzle number =" << p[i* PUZZLESIZE+ j] << endl;
+						}
+					}
+
 				}
 			}
-			//delete[] p;
-		}
 
+
+		}
 		//cout << "read file" << endl;
 		if (showfile == 1) {
 			cout << "puzzle number =" << puzzlenumber << endl;

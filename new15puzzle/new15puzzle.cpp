@@ -129,8 +129,7 @@ int puzzlemenu() {
 		cout << "\t* [Enter 0 to return] *" << endl;
 		cout << "------------------------------------------------------------------------ " << endl;
 
-		//cin.clear();
-		//cin.ignore(1024, '\n');
+		
 		int input;
 		cin >> input;
 		if (cin.fail()) {
@@ -178,6 +177,7 @@ int puzzlesizemenu() {
 		cout << "------------------------------------------------------------------------ " << endl;
 	
 		file.fileEmpty(PUZZLEFILENAME);//prevent miss reading
+		file.fileEmpty(SOLUTIONFILENAME);//prevent miss reading
 
 		int input;
 		cin >> input;
@@ -212,10 +212,8 @@ int main()
 	time_t t;
 	srand((unsigned)time(&t));
 	
-
-	
-	//puzzlesizemenu();
-	menu();
+	puzzlesizemenu();
+	//menu();
 	vector<short*>::iterator iter = puzzlecontainer.begin();
 	for (; iter != puzzlecontainer.end(); iter++)
 	{

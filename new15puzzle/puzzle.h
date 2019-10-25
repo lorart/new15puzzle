@@ -25,6 +25,7 @@ public:
 	int CheckThreePuzzle(short* temparry, int PUZZLESIZE);
 	int CheckFourPuzzle(short* temparry, int PUZZLESIZE);
 
+
 	int checkRow(short* puzzle, int PUZZLESIZE);
 	int checkColumn(short* temparry, int PUZZLESIZE);
 	int checkReverseRow(short* temparry, int PUZZLESIZE);
